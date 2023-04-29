@@ -20,16 +20,16 @@ class Movie < ActiveRecord::Base
         self.find(id)
     end
 
-    def self.find_movie_with_attributes(search_by)
-        self.find_by(search_by)
-    end
-    
-    def self.find_movies_after_2002
-        where("release_date > 2002")
+    def self.find_movie_with_attributes(attribute)
+        self.find_by(attribute)
     end
 
-    def update_with_attributes(movie)
-        self.update(movie)
+    def self.find_movies_after_2002
+        self.where("release_date > 2002")
+    end
+
+    def update_with_attributes(attributes)
+        self.update(attributes)
     end
 
     def self.update_all_titles(title)
@@ -37,10 +37,12 @@ class Movie < ActiveRecord::Base
     end
 
     def self.delete_by_id(id)
-        self.destroy(id)
+        movie = self.find(id)
+        movie.destroy
     end
 
     def self.delete_all_movies
         self.destroy_all
     end
+
 end
